@@ -1,0 +1,32 @@
+상세 페이지 사용 파라미터
+
+pbctBegnDtm
+pbctClsDtm
+dpslMtdNm
+bidMtdNm
+ldnmAdrs
+nmrddAdrs
+iqryCnt
+ctgrFullNm
+cltrNm
+cltrNo
+plnmNo
+pbctNo
+minBidPrc
+apslAsesAvgAmt
+pbctCltrStatNm
+
+cltrImgFiles
+
+
+검색 페이지용 파라미터
+
+uuid
+cltrNm
+getPbctBegnDtmFormatted
+getpbctClsDtmFormatted
+minBidPrc
+pbctCltrStatNm
+
+
+
