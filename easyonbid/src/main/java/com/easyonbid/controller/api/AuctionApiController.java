@@ -1,0 +1,62 @@
+package com.easyonbid.controller.api;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.easyonbid.entity.AuctionBasic;
+import com.easyonbid.service.domain.AuctionBasicService;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RestController
+@RequestMapping("/api/easyonbid")
+@RequiredArgsConstructor
+public class AuctionApiController {
+
+	private final AuctionBasicService auctionBasicService;
+
+	@GetMapping(value = "/fetchAll", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<AuctionBasic> fetchAll() throws Exception {
+	    		
+	    List<AuctionBasic> allItems = new ArrayList<>();
+	    int numOfRows = 200;
+	    int totalPages = 5;
+	    
+	    log.info("🚀 총 {}페이지, 페이지당 {}개 데이터 호출 시작", totalPages, numOfRows);
+	    
+	    for (int page = 1; page <= totalPages; page++) {
+	        log.info("📡 페이지 {}/{} 호출 중...", page, totalPages);
+	        List<AuctionBasic> pageItems = auctionBasicService.fetchParseSave(page, numOfRows, null, null);
+	        allItems.addAll(pageItems);
+	        log.info("✅ 페이지 {} 완료: {}개 데이터 저장", page, pageItems.size());
+	    }
+	    
+	    log.info("🎉 전체 작업 완료: 총 {}개 데이터 처리", allItems.size());
+	    return allItems;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

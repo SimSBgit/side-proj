@@ -29,7 +29,7 @@ SELECT * FROM price_info WHERE id = 1;
 -- 1. 공매 기본 정보 테이블 (메인 테이블)
 CREATE TABLE auction_basic (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    uuid CHAR(36) NOT NULL UNIQUE DEFAULT (UUID()),
+    uuid VARCHAR(100) NOT NULL UNIQUE DEFAULT (UUID()),
     plnm_no VARCHAR(50) NOT NULL UNIQUE COMMENT '공고번호',
     pbct_no VARCHAR(50) NOT NULL COMMENT '공매번호',
     pbct_cdtn_no VARCHAR(50) COMMENT '공매조건번호',
@@ -144,3 +144,4 @@ CREATE TABLE sync_history (
     INDEX idx_plnm_no (plnm_no),
     INDEX idx_sync_timestamp (sync_timestamp)
 ) COMMENT '데이터 동기화 이력';
+

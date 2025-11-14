@@ -2,7 +2,34 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.easyonbid.domain.mapper.AuctionBasicMapper">
+<mapper namespace="com.easyonbid.repository.AuctionBasicMapper">
+
+<insert id="upsert" parameterType="AuctionBasic">
+    INSERT INTO auction_basic
+        (uuid, plnm_no, pbct_no, pbct_cdtn_no, bid_mnmt_no, cltr_mnmt_no,
+         scrn_grp_cd, ctgr_full_nm, pbct_cltr_stat_nm, dpsl_mtd_cd, dpsl_mtd_nm,
+         bid_mtd_nm, pbct_begn_dtm, pbct_cls_dtm, uscbd_cnt, iqry_cnt)
+    VALUES
+        (#{uuid}, #{plnmNo}, #{pbctNo}, #{pbctCdtnNo}, #{bidMnmtNo}, #{cltrMnmtNo},
+         #{scrnGrpCd}, #{ctgrFullNm}, #{pbctCltrStatNm}, #{dpslMtdCd}, #{dpslMtdNm},
+         #{bidMtdNm}, #{pbctBegnDtm}, #{pbctClsDtm}, #{uscbdCnt}, #{iqryCnt})
+    ON DUPLICATE KEY UPDATE
+        pbct_no = VALUES(pbct_no),
+        pbct_cdtn_no = VALUES(pbct_cdtn_no),
+        bid_mnmt_no = VALUES(bid_mnmt_no),
+        cltr_mnmt_no = VALUES(cltr_mnmt_no),
+        scrn_grp_cd = VALUES(scrn_grp_cd),
+        ctgr_full_nm = VALUES(ctgr_full_nm),
+        pbct_cltr_stat_nm = VALUES(pbct_cltr_stat_nm),
+        dpsl_mtd_cd = VALUES(dpsl_mtd_cd),
+        dpsl_mtd_nm = VALUES(dpsl_mtd_nm),
+        bid_mtd_nm = VALUES(bid_mtd_nm),
+        pbct_begn_dtm = VALUES(pbct_begn_dtm),
+        pbct_cls_dtm = VALUES(pbct_cls_dtm),
+        uscbd_cnt = VALUES(uscbd_cnt),
+        iqry_cnt = VALUES(iqry_cnt);
+</insert>
+
 
 
 
