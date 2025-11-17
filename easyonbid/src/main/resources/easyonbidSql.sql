@@ -10,27 +10,44 @@ SELECT * FROM auction_basic;
 SELECT * FROM collateral_info;
 SELECT * FROM goods_detail;
 SELECT * FROM price_info;
+SELECT * FROM collateral_images;
+SELECT * FROM api_call_history;
+SELECT * FROM sync_history;
 
 DELETE FROM auction_basic;
 DELETE FROM collateral_info;
 DELETE FROM goods_detail;
 DELETE FROM price_info;
+DELETE FROM collateral_images;
+DELETE FROM api_call_history;
+DELETE FROM sync_history;
+
+SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE auction_basic;
 DROP TABLE collateral_info;
 DROP TABLE goods_detail;
 DROP TABLE price_info;
+DROP TABLE collateral_images;
+DROP TABLE api_call_history;
+DROP TABLE sync_history;
 
 SELECT * FROM auction_basic WHERE id = 1;
 SELECT * FROM collateral_info WHERE id = 1;
 SELECT * FROM goods_detail WHERE id = 1;
 SELECT * FROM price_info WHERE id = 1;
+SELECT * FROM collateral_images WHERE id = 1;;
+SELECT * FROM api_call_history WHERE id = 1;;
+SELECT * FROM sync_history WHERE id = 1;;
+
+-- 굳이 테이블을 나눌 필요는 없지만,
+-- 학습 차원에서 테이블을 나눠보았음.
 
 -- 1. 공매 기본 정보 테이블 (메인 테이블)
 CREATE TABLE auction_basic (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     uuid VARCHAR(100) NOT NULL UNIQUE DEFAULT (UUID()),
-    plnm_no VARCHAR(50) NOT NULL UNIQUE COMMENT '공고번호',
+    plnm_no VARCHAR(50) NOT NULL COMMENT '공고번호',
     pbct_no VARCHAR(50) NOT NULL COMMENT '공매번호',
     pbct_cdtn_no VARCHAR(50) COMMENT '공매조건번호',
     bid_mnmt_no VARCHAR(50) COMMENT '입찰번호',
@@ -53,7 +70,6 @@ CREATE TABLE auction_basic (
     INDEX idx_pbct_begn_dtm (pbct_begn_dtm),
     INDEX idx_pbct_cls_dtm (pbct_cls_dtm)
 ) COMMENT '공매 기본 정보';
-
 
 -- 2. 물건 정보 테이블
 CREATE TABLE collateral_info (
@@ -144,4 +160,17 @@ CREATE TABLE sync_history (
     INDEX idx_plnm_no (plnm_no),
     INDEX idx_sync_timestamp (sync_timestamp)
 ) COMMENT '데이터 동기화 이력';
+
+-- 입찰이력 = join으로 가져와서 화면 테이블 구성하기
+BID_MNMT_NO 입찰번호
+FEE_RATE 최저입찰가율
+PBCT_BEGN_DTM 입찰시작일시
+MIN_BID_PRC 최저입찰가
+DPSL_MTD_CD 처분방식코드/ 매각
+PBCT_CLTR_STAT_NM 물건상태 / 입찰준비중
+
+필터링으로 저장한 최신 공매목록을 토대로
+BID_MNMT_NO 입찰번호로 셀렉트 한 데이터 중
+FEE_RATE 최저입찰가율와 MIN_BID_PRC 최저입찰가와
+PBCT_BEGN_DTM 입찰시작일시를 가져와서 저장하기.
 

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.easyonbid.dto.response.SaveResult;
 import com.easyonbid.entity.AuctionBasic;
 import com.easyonbid.service.domain.AuctionBasicService;
 
@@ -26,20 +27,27 @@ public class AuctionApiController {
 	public List<AuctionBasic> fetchAll() throws Exception {
 	    		
 	    List<AuctionBasic> allItems = new ArrayList<>();
-	    int numOfRows = 200;
-	    int totalPages = 5;
+	    int numOfRows = 50;
+	    int totalPages = 1;
 	    
 	    log.info("🚀 총 {}페이지, 페이지당 {}개 데이터 호출 시작", totalPages, numOfRows);
 	    
 	    for (int page = 1; page <= totalPages; page++) {
 	        log.info("📡 페이지 {}/{} 호출 중...", page, totalPages);
-	        List<AuctionBasic> pageItems = auctionBasicService.fetchParseSave(page, numOfRows, null, null);
-	        allItems.addAll(pageItems);
-	        log.info("✅ 페이지 {} 완료: {}개 데이터 저장", page, pageItems.size());
+	        SaveResult<AuctionBasic> pageItems = auctionBasicService.fetchParseSave(page, numOfRows, null, null);
+	        allItems.addAll(pageItems.getSuccess());
+	        log.info(
+	                "✅ 페이지 {} 완료: 성공={}, 실패={}, 누적 성공={}",
+	                page,
+	                pageItems.getSuccess().size(),
+	                pageItems.getFailure().size(),
+	                allItems.size()
+	            );
 	    }
-	    
-	    log.info("🎉 전체 작업 완료: 총 {}개 데이터 처리", allItems.size());
+	    log.info("🎉 전체 작업 완료: 총 성공 {}건, 총 페이지 {}개", allItems.size(), totalPages);
 	    return allItems;
+	    
+	    
 	}
 
 	

@@ -34,6 +34,10 @@ openapi:
     url: "http://openapi.onbid.co.kr/openapi/services/KamcoPblsalThingInquireSvc/getKamcoPbctCltrList"
     serviceKey: "273f45187071c8be25359787b100033ecd7addb7ab2b533878d80dd80dcf4fdb"
 
+#logging:
+#  level:
+#    root: debug
+
 #scheduler settings
 #scheduler:
 #  easyonbid:

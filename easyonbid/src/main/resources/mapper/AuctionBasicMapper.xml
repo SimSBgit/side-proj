@@ -4,15 +4,30 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.easyonbid.repository.AuctionBasicMapper">
 
+<insert id="insert" parameterType="AuctionBasic" useGeneratedKeys="true" keyProperty="id">
+	 INSERT INTO auction_basic
+        (uuid, plnm_no, pbct_no, pbct_cdtn_no, bid_mnmt_no, cltr_mnmt_no,
+         scrn_grp_cd, ctgr_full_nm, pbct_cltr_stat_nm, dpsl_mtd_cd, dpsl_mtd_nm,
+         bid_mtd_nm, pbct_begn_dtm, pbct_cls_dtm, uscbd_cnt, iqry_cnt, created_at, 
+         updated_at)
+    VALUES
+        (#{uuid}, #{plnmNo}, #{pbctNo}, #{pbctCdtnNo}, #{bidMnmtNo}, #{cltrMnmtNo},
+         #{scrnGrpCd}, #{ctgrFullNm}, #{pbctCltrStatNm}, #{dpslMtdCd}, #{dpslMtdNm},
+         #{bidMtdNm}, #{pbctBegnDtm}, #{pbctClsDtm}, #{uscbdCnt}, #{iqryCnt}, 
+         #{createdAt}, #{updatedAt})
+</insert>
+
 <insert id="upsert" parameterType="AuctionBasic">
     INSERT INTO auction_basic
         (uuid, plnm_no, pbct_no, pbct_cdtn_no, bid_mnmt_no, cltr_mnmt_no,
          scrn_grp_cd, ctgr_full_nm, pbct_cltr_stat_nm, dpsl_mtd_cd, dpsl_mtd_nm,
-         bid_mtd_nm, pbct_begn_dtm, pbct_cls_dtm, uscbd_cnt, iqry_cnt)
+         bid_mtd_nm, pbct_begn_dtm, pbct_cls_dtm, uscbd_cnt, iqry_cnt, created_at, 
+         updated_at)
     VALUES
         (#{uuid}, #{plnmNo}, #{pbctNo}, #{pbctCdtnNo}, #{bidMnmtNo}, #{cltrMnmtNo},
          #{scrnGrpCd}, #{ctgrFullNm}, #{pbctCltrStatNm}, #{dpslMtdCd}, #{dpslMtdNm},
-         #{bidMtdNm}, #{pbctBegnDtm}, #{pbctClsDtm}, #{uscbdCnt}, #{iqryCnt})
+         #{bidMtdNm}, #{pbctBegnDtm}, #{pbctClsDtm}, #{uscbdCnt}, #{iqryCnt},
+         #{createdAt}, #{updatedAt})
     ON DUPLICATE KEY UPDATE
         pbct_no = VALUES(pbct_no),
         pbct_cdtn_no = VALUES(pbct_cdtn_no),
@@ -27,7 +42,8 @@
         pbct_begn_dtm = VALUES(pbct_begn_dtm),
         pbct_cls_dtm = VALUES(pbct_cls_dtm),
         uscbd_cnt = VALUES(uscbd_cnt),
-        iqry_cnt = VALUES(iqry_cnt);
+        iqry_cnt = VALUES(iqry_cnt),
+        updated_at = VALUES(updated_at);
 </insert>
 
 

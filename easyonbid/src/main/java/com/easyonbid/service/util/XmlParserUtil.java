@@ -21,9 +21,6 @@ public class XmlParserUtil {
 		XmlMapper xmlMapper = new XmlMapper();
 	    JsonNode root = xmlMapper.readTree(xml);
 	    
-	    // 루트 구조 로깅
-	    log.info("🌳 XML 루트 구조: {}", root.toPrettyString());
-	    
 	    // body 노드 확인
 	    JsonNode body = root.path("body");
 	    if (body.isMissingNode()) {
@@ -51,6 +48,6 @@ public class XmlParserUtil {
 	        log.info("📦 아이템 노드 수: {}", item.size());
 	    }
 	    
-	return item;
+	return body;
 	}
 }

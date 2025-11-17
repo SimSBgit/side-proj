@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CollateralInfo {
 
-	 private Long id;
+	 	private Long id;
 	    private Long auctionBasicId;
 	    private String cltrNo;
 	    private String cltrHstrNo;

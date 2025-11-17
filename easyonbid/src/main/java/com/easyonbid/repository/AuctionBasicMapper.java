@@ -7,7 +7,7 @@ import com.easyonbid.entity.AuctionBasic;
 @Mapper
 public interface AuctionBasicMapper {
 
-	void upsert(AuctionBasic item);
+	void insert(AuctionBasic item);
 
 	
 }
