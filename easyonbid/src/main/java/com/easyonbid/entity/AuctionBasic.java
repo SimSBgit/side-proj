@@ -15,7 +15,6 @@ public class AuctionBasic {
     private String pbctNo;
     private String pbctCdtnNo;
     private String bidMnmtNo;
-    private String cltrNm;
     private String cltrMnmtNo;
     private String scrnGrpCd;
     private String ctgrFullNm;

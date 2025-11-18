@@ -73,7 +73,7 @@ public class AuctionBasicService {
 			try {
 				saveItem(item); // upsert 내부 동작 확인 필요
 				savedItems.add(item);
-				log.info("✅ 저장 완료: 공고번호={}, 공매번호={}, 물건명={}", item.getPlnmNo(), item.getPbctNo(), item.getCltrNm());
+				log.info("✅ 저장 완료: 공고번호={}, 공매번호={}, 물건명={}", item.getPlnmNo(), item.getPbctNo());
 			} catch (Exception e) {
 				failedItems.add(item);
 				log.error("❌ DB 저장 실패: 공고번호={}, 공매번호={}, 오류={}", item.getPlnmNo(), item.getPbctNo(), e.getMessage());
@@ -92,4 +92,12 @@ public class AuctionBasicService {
 		}
 		auctionBasicMapper.insert(item);
 	}
+
+	public List<AuctionBasic> getAll(int offset, int numOfRows) {
+		return auctionBasicMapper.findPagedAll(offset, numOfRows);
+	}
+	
+	
+	
+	
 }

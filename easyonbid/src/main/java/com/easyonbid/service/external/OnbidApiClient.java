@@ -29,6 +29,4 @@ public class OnbidApiClient {
                 .bodyToMono(String.class)
                 .block();
     }
-	
-	
 }

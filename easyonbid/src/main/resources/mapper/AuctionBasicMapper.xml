@@ -46,7 +46,11 @@
         updated_at = VALUES(updated_at);
 </insert>
 
-
+<!--페이지당 10개 전체 조회-->
+<select id="findPagedAll" resultType="AuctionBasic">
+		SELECT * FROM auction_basic ORDER BY id DESC LIMIT #{numOfRows} OFFSET
+		#{offset}
+</select>
 
 
 </mapper>

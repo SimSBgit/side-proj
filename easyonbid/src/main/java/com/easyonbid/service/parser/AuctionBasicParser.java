@@ -70,7 +70,6 @@ public class AuctionBasicParser {
 				item.setPbctNo(pbctNo.toString());
 				
 				// Basic fields parsing
-				item.setCltrNm(itemNode.path("CLTR_NM").asText());
 				item.setPbctCdtnNo(itemNode.path("PBCT_CDTN_NO").asText());
 				item.setBidMnmtNo(itemNode.path("BID_MNMT_NO").asText());
 				item.setCltrMnmtNo(itemNode.path("CLTR_MNMT_NO").asText());
