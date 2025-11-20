@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easybid.mapper.EasybidMapper">
+
+    <insert id="insert" parameterType="EasybidItem" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO auction_item
+         (
+            uuid, plnm_no, pbct_no, pbct_cdtn_no, cltr_no, cltr_hstr_no, scrn_grp_cd,
+            ctgr_full_nm, bid_mnmt_no, cltr_nm, cltr_mnmt_no, ldnm_adrs, nmrdd_adrs,
+            ldnm_pnu, dpsl_mtd_cd, dpsl_mtd_nm, bid_mtd_nm, min_bid_prc, apsl_ases_avg_amt,
+            fee_rate, pbct_begn_dtm, pbct_cls_dtm, pbct_cltr_stat_nm,
+            uscbd_cnt, iqry_cnt, goods_nm, manf, mdl, nrgt, grbx, endpc, vhcl_mlge, fuel,
+            scrt_nm, tpbz, itm_nm, mmb_rgt_nm, sido, sigungu, emd, ctgr_hirk_id, ctgr_hirk_id_mid,
+            cltr_img_files, json_data
+        )
+        VALUES
+        (
+            #{uuid}, #{plnmNo}, #{pbctNo}, #{pbctCdtnNo}, #{cltrNo}, #{cltrHstrNo}, #{scrnGrpCd},
+            #{ctgrFullNm}, #{bidMnmtNo}, #{cltrNm}, #{cltrMnmtNo}, #{ldnmAdrs}, #{nmrddAdrs},
+            #{ldnmPnu}, #{dpslMtdCd}, #{dpslMtdNm}, #{bidMtdNm}, #{minBidPrc}, #{apslAsesAvgAmt},
+            #{feeRate}, #{pbctBegnDtm}, #{pbctClsDtm}, #{pbctCltrStatNm},
+            #{uscbCnt}, #{iqryCnt}, #{goodsNm}, #{manf}, #{mdl}, #{nrgt}, #{grbx}, #{endpc}, #{vhclMlge}, #{fuel},
+            #{scrtNm}, #{tpbz}, #{itmNm}, #{mmbRgtNm}, #{sido}, #{sigungu}, #{emd}, #{ctgrHirkId}, #{ctgrHirkIdMid},
+            #{cltrImgFiles}, #{jsonData}
+        )
+    </insert>
+
+    <!-- 전체 조회 -->
+    <!--
+    <select id="findAll" resultType="EasybidItem">
+        SELECT * FROM auction_item ORDER BY id DESC LIMIT 100
+    </select>
+    -->
+    
+    <!-- 페이지당 10개 전체 조회 -->
+    <select id="findPagedAll" resultType="EasybidItem">
+        SELECT * FROM auction_item ORDER BY id DESC LIMIT #{numOfRows} OFFSET #{offset}
+    </select>
+    
+    <!-- 🔹 중복 체크용 조회 쿼리 추가 -->
+    <select id="findByPlnmNoAndPbctNo" resultType="EasybidItem">
+        SELECT *
+        FROM auction_item
+        WHERE plnm_no = #{plnmNo}
+          AND pbct_no = #{pbctNo}
+        LIMIT 1
+    </select>
+    
+    <select id="findLatestByPlnmNo" parameterType="long" resultType="EasybidItem">
+    	SELECT *
+    	FROM auction_item
+    	WHERE plnm_no = #{plnmNo}
+    	ORDER BY pbct_no DESC
+    	LIMIT 1
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+    	SELECT COUNT(*) FROM auction_item
+	</select>
+	
+	<!--
+	<select id="getDetails" parameterType="long">
+		SELECT * FROM auction_item WHERE id = #{id}
+	</select>
+	-->
+	
+	<select id="findUuid" parameterType="string" resultType="EasybidItem">
+		SELECT * FROM auction_item WHERE uuid = #{uuid}
+	</select>
+
+</mapper>
